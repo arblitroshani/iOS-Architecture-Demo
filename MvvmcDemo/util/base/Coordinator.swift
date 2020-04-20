@@ -1,5 +1,5 @@
 //
-//  BaseCoordinator.swift
+//  Coordinator.swift
 //  MvvmcDemo
 //
 //  Created by Arbli Troshani on 4/17/20.
@@ -38,9 +38,9 @@ public class Coordinator: CoordinatorType {
 
     var rootViewController: UIViewController?
     var navigationController: UINavigationController?
+    weak var parentCoordinator: CoordinatorType?
 
     var childCoordinators: [CoordinatorType]
-    weak var parentCoordinator: CoordinatorType?
 
     var didDismiss: Single<Void>
 

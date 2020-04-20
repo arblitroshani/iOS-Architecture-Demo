@@ -1,5 +1,5 @@
 //
-//  AppCoordinatorType.swift
+//  WindowCoordinator.swift
 //  MvvmcDemo
 //
 //  Created by Arbli Troshani on 4/18/20.
@@ -9,12 +9,12 @@
 import UIKit
 
 
-protocol WindowCoordinatorType: CoordinatorType {
+protocol WindowInitializable {
     var window: UIWindow { get set }
 }
 
 
-public class WindowCoordinator: Coordinator, WindowCoordinatorType {
+public class WindowCoordinator: Coordinator, WindowInitializable {
 
     var window: UIWindow
 
