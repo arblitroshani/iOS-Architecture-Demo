@@ -27,7 +27,7 @@ Basic app showcasing MVVM-C architecture with RxSwift FRP.
 - creates, stores, starts the first coordinator.
 - sets the `window.rootViewController` and calls `window.makeKeyAndVisible()`
 - other initialization code that might not be appropriate for `AppDelegate` or `SceneDelegate`.
-- 
+
 ## ViewModel
 ###### location: `/scene/*/...ViewModel.swift`
 - must not import `UIKit`
@@ -37,17 +37,17 @@ Basic app showcasing MVVM-C architecture with RxSwift FRP.
 - all output from the `ViewModel` that is aimed to the `ViewController` is a `Driver<T>`
 - other output aimed at it's Coordinator' can be an `Observable` or other `Traits`
 - all output should be direct mapping of input
-- should not keep state implicitly, but rather utilize operators such as [scan()](http://reactivex.io/documentation/operators/scan.html)
+- should not keep state explicitly, but rather utilize operators such as [scan()](http://reactivex.io/documentation/operators/scan.html)
 
 ## ViewController
 ###### location: `/scene/*/...ViewController.swift`
 - conforms to `BindableType` which enforces having a `viewModel` attribute and `bindViewModel()` method
-- extension to `BindableType` adds `bind(to:loadIfNeeded:)` which is called from the coordinator. Used to inject the `ViewModel` to the `ViewController`.
+- extension to `BindableType` adds `bind(to:loadIfNeeded:)` which is called from the `Coordinator`. Used to inject the `ViewModel` to the `ViewController`.
 
 ## Unit Tests
 - `testViewModelEmitsInitialValue()` demonstrates the usage of `RxBlocking` to get an array of a certain length from `viewModel.didSetTitle`
 - other tests use `RxTest` which binds an `Observable<T>` object to a `TestableObservable<T>` and lets you easily check expected values and times
-- [build workflow](https://github.com/arblitroshani/iOS-Architecture-Demo/actions?query=workflow%3Abuild) builds and runs all tests automatically on each push to `master`
+- [build workflow CI](https://github.com/arblitroshani/iOS-Architecture-Demo/actions?query=workflow%3Abuild) builds and runs all tests on each push to `master`
 
 ----
 
