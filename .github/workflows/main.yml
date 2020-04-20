@@ -1,0 +1,23 @@
+name: build
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2 
+        
+      - name: Select Xcode 11
+        run: sudo xcode-select -switch /Applications/Xcode_11.3.app
+        
+      - name: Install Dependencies
+        run: |
+          pod install
+          gem install xcpretty
+      
+      - name: Build and test
+        run: set -o pipefail && xcodebuild clean test -workspace "MvvmcDemo.xcworkspace" -scheme "MvvmcDemo" -destination "platform=iOS Simulator,OS=latest,name=iPhone 11" | xcpretty
