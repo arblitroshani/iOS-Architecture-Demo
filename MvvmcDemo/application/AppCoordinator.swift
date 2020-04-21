@@ -9,13 +9,22 @@
 import UIKit
 
 
-class AppCoordinator: WindowCoordinator {
+class AppCoordinator: Coordinator {
+
+    var window: UIWindow
+
+    init(window: UIWindow) {
+        self.window = window
+        let appNavigationController = UINavigationController()
+        appNavigationController.isNavigationBarHidden = true
+        super.init(with: appNavigationController)
+    }
 
     override func start() {
-        let mainScreenCoordinator = MainScreenCoordinator(parentCoordinator: self)
+        let mainScreenCoordinator = MainScreenCoordinator(with: navigationController)
         store(mainScreenCoordinator)
 
-        window.rootViewController = mainScreenCoordinator.rootViewController
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
 }

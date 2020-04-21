@@ -12,12 +12,8 @@ import RxSwift
 
 class MainScreenCoordinator: Coordinator {
 
-    private let disposeBag: DisposeBag
-
-    override init(parentCoordinator: CoordinatorType?) {
-        disposeBag = DisposeBag()
-
-        super.init(parentCoordinator: parentCoordinator)
+    override init(with navigationController: UINavigationController) {
+        super.init(with: navigationController)
 
         let viewController = MainScreenViewController()
         let viewModel = MainScreenViewModel()
@@ -27,11 +23,11 @@ class MainScreenCoordinator: Coordinator {
             self?.actOnStart()
         }).disposed(by: disposeBag)
 
-        rootViewController = viewController
+        navigationController.pushViewController(viewController, animated: false)
     }
 
     private func actOnStart() {
-        let homeCoordinator = HomeCoordinator(parentCoordinator: self)
+        let homeCoordinator = HomeCoordinator(with: navigationController)
         store(homeCoordinator)
         homeCoordinator.start()
     }

@@ -12,48 +12,35 @@ import RxSwift
 
 class HomeCoordinator: Coordinator {
 
-    private let disposeBag = DisposeBag()
+    private let tabBarController: UIViewController
 
-    override init(parentCoordinator: CoordinatorType?) {
-        super.init(parentCoordinator: parentCoordinator)
+    override init(with navigationController: UINavigationController) {
+        // MARK: CounterViewController
+        let counterViewModel = CounterViewModel()
+        let counterViewController = CounterViewController()
+        counterViewController.bind(to: counterViewModel)
+        counterViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
 
-        let counterCoordinator = CounterCoordinator(parentCoordinator: self)
-        let secondCoordinator = SecondCoordinator(parentCoordinator: self)
+        // MARK: SecondViewController
+        let secondViewController = SecondViewController()
+        secondViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
 
-        store(counterCoordinator)
-        store(secondCoordinator)
+        // MARK: HomeTabBarController
+        tabBarController = HomeTabBarController(with: [counterViewController, secondViewController])
 
-        guard let counterVc = counterCoordinator.rootViewController,
-            let userListVc = secondCoordinator.rootViewController
-        else {
-            print("RootViewControllers not initialized")
-            return
-        }
+        super.init(with: navigationController)
 
-        counterVc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-        userListVc.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
-
-        let tabBarController = HomeTabBarController(with: [counterVc, userListVc])
-        rootViewController = tabBarController
-
-        counterCoordinator.didDismiss.subscribe(onSuccess: { [weak self] in
+        counterViewModel.didDismiss.subscribe(onSuccess: { [weak self] in
             self?.actOnDismiss()
         }).disposed(by: disposeBag)
     }
 
     override func start() {
-        guard let parentController = parentCoordinator?.rootViewController,
-            let rootViewController = rootViewController
-        else { return }
-
-        rootViewController.modalPresentationStyle = .fullScreen
-        parentController.present(rootViewController, animated: true)
+        navigationController.pushViewController(tabBarController, animated: true)
     }
 
     private func actOnDismiss() {
-        rootViewController?.dismiss(animated: true)
-        parentCoordinator?.rootViewController?.setNeedsStatusBarAppearanceUpdate()
-
-        childCoordinators.removeAll()
+        navigationController.popViewController(animated: true)
+        navigationController.viewControllers.last?.setNeedsStatusBarAppearanceUpdate()
     }
 }

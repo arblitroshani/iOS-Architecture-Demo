@@ -19,7 +19,7 @@
 		C5F6F84E2449E1CF00B066DC /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F82C2449E1CF00B066DC /* UIColor+hex.swift */; };
 		C5F6F8522449E1CF00B066DC /* UIButton+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F8302449E1CF00B066DC /* UIButton+init.swift */; };
 		C5F6F8532449E1CF00B066DC /* UILabel+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F8312449E1CF00B066DC /* UILabel+init.swift */; };
-		C5F6F85E2449E2B600B066DC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F85D2449E2B600B066DC /* Coordinator.swift */; };
+		C5F6F85E2449E2B600B066DC /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F85D2449E2B600B066DC /* CoordinatorType.swift */; };
 		C5F6F8602449E73B00B066DC /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F85F2449E73B00B066DC /* AppCoordinator.swift */; };
 		C5F6F86C244A154900B066DC /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F86B244A154900B066DC /* MainScreenViewController.swift */; };
 		C5F6F86E244A157300B066DC /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F86D244A157300B066DC /* MainScreenViewModel.swift */; };
@@ -28,11 +28,11 @@
 		C5F6F876244A170700B066DC /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F875244A170700B066DC /* SecondViewController.swift */; };
 		C5F6F878244A171E00B066DC /* MainScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F877244A171E00B066DC /* MainScreenCoordinator.swift */; };
 		C5F6F87B244A198200B066DC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F87A244A198200B066DC /* HomeCoordinator.swift */; };
-		C5F6F87D244A1B2E00B066DC /* CounterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F87C244A1B2E00B066DC /* CounterCoordinator.swift */; };
-		C5F6F87F244A1B4500B066DC /* SecondCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F87E244A1B4500B066DC /* SecondCoordinator.swift */; };
-		C5F6F883244B349000B066DC /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F882244B349000B066DC /* WindowCoordinator.swift */; };
 		C5F6F887244C878200B066DC /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F886244C878200B066DC /* HomeTabViewController.swift */; };
 		C5F6F88A244C945300B066DC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F889244C945300B066DC /* Color.swift */; };
+		C5F6F914244FA4FA00B066DC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F913244FA4FA00B066DC /* Coordinator.swift */; };
+		C5F6F915244FA4FA00B066DC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F913244FA4FA00B066DC /* Coordinator.swift */; };
+		C5F6F916244FAD1D00B066DC /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F85D2449E2B600B066DC /* CoordinatorType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +71,7 @@
 		C5F6F82C2449E1CF00B066DC /* UIColor+hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		C5F6F8302449E1CF00B066DC /* UIButton+init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+init.swift"; sourceTree = "<group>"; };
 		C5F6F8312449E1CF00B066DC /* UILabel+init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+init.swift"; sourceTree = "<group>"; };
-		C5F6F85D2449E2B600B066DC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		C5F6F85D2449E2B600B066DC /* CoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
 		C5F6F85F2449E73B00B066DC /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C5F6F86B244A154900B066DC /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		C5F6F86D244A157300B066DC /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
@@ -80,11 +80,9 @@
 		C5F6F875244A170700B066DC /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		C5F6F877244A171E00B066DC /* MainScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenCoordinator.swift; sourceTree = "<group>"; };
 		C5F6F87A244A198200B066DC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		C5F6F87C244A1B2E00B066DC /* CounterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCoordinator.swift; sourceTree = "<group>"; };
-		C5F6F87E244A1B4500B066DC /* SecondCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCoordinator.swift; sourceTree = "<group>"; };
-		C5F6F882244B349000B066DC /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		C5F6F886244C878200B066DC /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		C5F6F889244C945300B066DC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		C5F6F913244FA4FA00B066DC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CEA053FF200E4285F1FF69A1 /* Pods-MVVMC & FRP DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMC & FRP DemoTests.debug.xcconfig"; path = "Target Support Files/Pods-MVVMC & FRP DemoTests/Pods-MVVMC & FRP DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CEFBF19A4AC64DB488270AF9 /* Pods-Thin Coordinator ProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thin Coordinator ProjectTests.release.xcconfig"; path = "Target Support Files/Pods-Thin Coordinator ProjectTests/Pods-Thin Coordinator ProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		FCAA47D11500C0EDBE29DA44 /* Pods-Thin Coordinator ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thin Coordinator ProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-Thin Coordinator ProjectTests/Pods-Thin Coordinator ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -215,8 +213,8 @@
 		C5F6F85C2449E2AB00B066DC /* base */ = {
 			isa = PBXGroup;
 			children = (
-				C5F6F85D2449E2B600B066DC /* Coordinator.swift */,
-				C5F6F882244B349000B066DC /* WindowCoordinator.swift */,
+				C5F6F85D2449E2B600B066DC /* CoordinatorType.swift */,
+				C5F6F913244FA4FA00B066DC /* Coordinator.swift */,
 			);
 			path = base;
 			sourceTree = "<group>";
@@ -243,7 +241,6 @@
 		C5F6F86F244A160100B066DC /* counter */ = {
 			isa = PBXGroup;
 			children = (
-				C5F6F87C244A1B2E00B066DC /* CounterCoordinator.swift */,
 				C5F6F872244A162300B066DC /* CounterViewModel.swift */,
 				C5F6F870244A161100B066DC /* CounterViewController.swift */,
 			);
@@ -253,7 +250,6 @@
 		C5F6F874244A16EE00B066DC /* second */ = {
 			isa = PBXGroup;
 			children = (
-				C5F6F87E244A1B4500B066DC /* SecondCoordinator.swift */,
 				C5F6F875244A170700B066DC /* SecondViewController.swift */,
 			);
 			path = second;
@@ -466,16 +462,13 @@
 				C5F6F876244A170700B066DC /* SecondViewController.swift in Sources */,
 				C5F6F84C2449E1CF00B066DC /* UIView+anchor.swift in Sources */,
 				C5F6F86E244A157300B066DC /* MainScreenViewModel.swift in Sources */,
-				C5F6F883244B349000B066DC /* WindowCoordinator.swift in Sources */,
 				C5F6F8602449E73B00B066DC /* AppCoordinator.swift in Sources */,
 				C5F6F878244A171E00B066DC /* MainScreenCoordinator.swift in Sources */,
 				C5F6F84E2449E1CF00B066DC /* UIColor+hex.swift in Sources */,
 				C5F6F88A244C945300B066DC /* Color.swift in Sources */,
 				C5F6F86C244A154900B066DC /* MainScreenViewController.swift in Sources */,
 				C5F6F7A52449DFCB00B066DC /* AppDelegate.swift in Sources */,
-				C5F6F87D244A1B2E00B066DC /* CounterCoordinator.swift in Sources */,
 				C5F6F87B244A198200B066DC /* HomeCoordinator.swift in Sources */,
-				C5F6F87F244A1B4500B066DC /* SecondCoordinator.swift in Sources */,
 				C5F6F8532449E1CF00B066DC /* UILabel+init.swift in Sources */,
 				C5F6F7A72449DFCB00B066DC /* SceneDelegate.swift in Sources */,
 				C5F6F8522449E1CF00B066DC /* UIButton+init.swift in Sources */,
@@ -483,7 +476,8 @@
 				C5F6F887244C878200B066DC /* HomeTabViewController.swift in Sources */,
 				C5F6F871244A161100B066DC /* CounterViewController.swift in Sources */,
 				C5F6F873244A162300B066DC /* CounterViewModel.swift in Sources */,
-				C5F6F85E2449E2B600B066DC /* Coordinator.swift in Sources */,
+				C5F6F85E2449E2B600B066DC /* CoordinatorType.swift in Sources */,
+				C5F6F914244FA4FA00B066DC /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,7 +485,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5F6F915244FA4FA00B066DC /* Coordinator.swift in Sources */,
 				C5F6F7BC2449DFCE00B066DC /* MvvmcDemoTests.swift in Sources */,
+				C5F6F916244FAD1D00B066DC /* CoordinatorType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
