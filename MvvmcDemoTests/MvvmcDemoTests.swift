@@ -7,8 +7,9 @@
 //
 
 import XCTest
-import RxSwift
 import RxTest
+import RxSwift
+import RxCocoa
 import RxBlocking
 @testable import MvvmcDemo
 
@@ -30,66 +31,69 @@ class MvvmcDemoTests: XCTestCase {
     }
 
     func testViewModelEmitsInitialValue() {
-        let expectedTitle = "10 more taps to dismiss"
         let emittedTitle = try! viewModel.didSetTitle.toBlocking().first()!
-
-        XCTAssertEqual(emittedTitle, expectedTitle)
+        XCTAssertEqual(emittedTitle, "10 more taps to dismiss")
     }
 
     func testCounterTitle() {
-        tapOnButton(times: 2, spacing: 100)
+        let taps = tapOnButton(times: 2)
 
         let results = scheduler.createObserver(String.self)
+        viewModel.didSetTitle
+            .drive(results)
+            .disposed(by: disposeBag)
+        scheduler.start()
+
         let expected: [Recorded<Event<String>>] = [
             .next(0, "10 more taps to dismiss"),
-            .next(100, "9 more taps to dismiss"),
-            .next(200, "8 more taps to dismiss")
+            .next(taps[0], "9 more taps to dismiss"),
+            .next(taps[1], "8 more taps to dismiss")
         ]
 
-        startObserving(viewModel.didSetTitle.asObservable(), at: results)
-
+        XCTAssertEqual(results.events.count, 3)
         XCTAssertEqual(results.events, expected)
     }
 
     func testViewModelIssuesDismissWhenCounterReachesZero() {
-        tapOnButton(times: 10, spacing: 100)
+        let taps = tapOnButton(times: 10)
 
         let results = scheduler.createObserver(Void.self)
-        let expectedTime = 1000
+        viewModel.didDismiss
+            .asObservable()
+            .subscribe(results)
+            .disposed(by: disposeBag)
+        scheduler.start()
 
-        startObserving(viewModel.didDismiss.asObservable(), at: results)
-
+        XCTAssertNotNil(results.events.first)
         XCTAssertFalse(results.events.first!.value.isCompleted)
-        XCTAssertEqual(results.events.first!.time, expectedTime)
+        XCTAssertEqual(results.events.first!.time, taps.last!)
     }
 
     func testCounterUsesSingularNameCorrectly() {
         tapOnButton(times: 9, spacing: 100)
 
         let results = scheduler.createObserver(String.self)
-        let expected = Recorded.next(900, "1 more tap to dismiss")
+        viewModel.didSetTitle
+            .drive(results)
+            .disposed(by: disposeBag)
+        scheduler.start()
 
-        startObserving(viewModel.didSetTitle.asObservable(), at: results)
-
-        XCTAssertEqual(results.events.last, expected)
+        XCTAssertNotNil(results.events.last)
+        XCTAssertNotNil(results.events.last!.value.element)
+        XCTAssertEqual(results.events.last?.value.element!, "1 more tap to dismiss")
     }
 
-    private func tapOnButton(times: Int, spacing: Int) {
-        let buttonTaps = (1 ... times).map { Recorded.next(spacing * $0, ()) }
+    @discardableResult
+    private func tapOnButton(times: Int, spacing: Int = 10) -> [Int] {
+        let buttonTaps = (1 ... times).map { spacing * $0 }
+        let buttonTapEvents = buttonTaps.map { Recorded.next($0, ()) }
 
         scheduler
-            .createHotObservable(buttonTaps)
+            .createHotObservable(buttonTapEvents)
             .asObservable()
             .bind(to: viewModel.inputs.tapTrigger)
-            .disposed(by: self.disposeBag)
-    }
+            .disposed(by: disposeBag)
 
-    private func startObserving<T>(_ observable: Observable<T>, at results: TestableObserver<T>) {
-        scheduler.scheduleAt(0) {
-            observable
-                .subscribe(results)
-                .disposed(by: self.disposeBag)
-        }
-        scheduler.start()
+        return buttonTaps
     }
 }
