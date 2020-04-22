@@ -13,9 +13,11 @@ import RxSwift
 protocol CoordinatorType: class {
     var navigationController: UINavigationController { get set }
     var childCoordinators: [CoordinatorType] { get set }
+
     var disposeBag: DisposeBag { get set }
 
     func start()
+    func didRemove(_ controller: UIViewController)
 }
 
 
@@ -25,7 +27,7 @@ extension CoordinatorType {
         childCoordinators.append(child)
     }
 
-    func free(_ child: CoordinatorType) {
+    func free(_ child: CoordinatorType?) {
         childCoordinators = childCoordinators.filter { $0 !== child }
     }
 }

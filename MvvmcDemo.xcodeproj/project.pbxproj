@@ -28,7 +28,7 @@
 		C5F6F876244A170700B066DC /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F875244A170700B066DC /* SecondViewController.swift */; };
 		C5F6F878244A171E00B066DC /* MainScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F877244A171E00B066DC /* MainScreenCoordinator.swift */; };
 		C5F6F87B244A198200B066DC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F87A244A198200B066DC /* HomeCoordinator.swift */; };
-		C5F6F887244C878200B066DC /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F886244C878200B066DC /* HomeTabViewController.swift */; };
+		C5F6F887244C878200B066DC /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F886244C878200B066DC /* HomeTabBarController.swift */; };
 		C5F6F88A244C945300B066DC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F889244C945300B066DC /* Color.swift */; };
 		C5F6F914244FA4FA00B066DC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F913244FA4FA00B066DC /* Coordinator.swift */; };
 		C5F6F915244FA4FA00B066DC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F6F913244FA4FA00B066DC /* Coordinator.swift */; };
@@ -80,7 +80,7 @@
 		C5F6F875244A170700B066DC /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		C5F6F877244A171E00B066DC /* MainScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenCoordinator.swift; sourceTree = "<group>"; };
 		C5F6F87A244A198200B066DC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		C5F6F886244C878200B066DC /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
+		C5F6F886244C878200B066DC /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		C5F6F889244C945300B066DC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		C5F6F913244FA4FA00B066DC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CEA053FF200E4285F1FF69A1 /* Pods-MVVMC & FRP DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMC & FRP DemoTests.debug.xcconfig"; path = "Target Support Files/Pods-MVVMC & FRP DemoTests/Pods-MVVMC & FRP DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -259,7 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				C5F6F87A244A198200B066DC /* HomeCoordinator.swift */,
-				C5F6F886244C878200B066DC /* HomeTabViewController.swift */,
+				C5F6F886244C878200B066DC /* HomeTabBarController.swift */,
 				C5F6F86F244A160100B066DC /* counter */,
 				C5F6F874244A16EE00B066DC /* second */,
 			);
@@ -473,7 +473,7 @@
 				C5F6F7A72449DFCB00B066DC /* SceneDelegate.swift in Sources */,
 				C5F6F8522449E1CF00B066DC /* UIButton+init.swift in Sources */,
 				C5F6F83D2449E1CF00B066DC /* BindableType.swift in Sources */,
-				C5F6F887244C878200B066DC /* HomeTabViewController.swift in Sources */,
+				C5F6F887244C878200B066DC /* HomeTabBarController.swift in Sources */,
 				C5F6F871244A161100B066DC /* CounterViewController.swift in Sources */,
 				C5F6F873244A162300B066DC /* CounterViewModel.swift in Sources */,
 				C5F6F85E2449E2B600B066DC /* CoordinatorType.swift in Sources */,

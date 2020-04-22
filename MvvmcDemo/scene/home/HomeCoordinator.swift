@@ -12,7 +12,7 @@ import RxSwift
 
 class HomeCoordinator: Coordinator {
 
-    private let tabBarController: UIViewController
+    private let tabBarController: HomeTabBarController
 
     override init(with navigationController: UINavigationController) {
         // MARK: CounterViewController
@@ -26,20 +26,21 @@ class HomeCoordinator: Coordinator {
         secondViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
 
         // MARK: HomeTabBarController
-        tabBarController = HomeTabBarController(with: [counterViewController, secondViewController])
+        tabBarController = .init(with: [counterViewController, secondViewController])
 
         super.init(with: navigationController)
 
-        counterViewModel.didDismiss.subscribe(onSuccess: { [weak self] in
-            self?.actOnDismiss()
+        counterViewModel.didRequestDismiss.subscribe(onSuccess: { [weak self] in
+            self?.actOnDismissRequest()
         }).disposed(by: disposeBag)
     }
 
     override func start() {
+        tabBarController.coordinator = self
         navigationController.pushViewController(tabBarController, animated: true)
     }
 
-    private func actOnDismiss() {
+    private func actOnDismissRequest() {
         navigationController.popViewController(animated: true)
         navigationController.viewControllers.last?.setNeedsStatusBarAppearanceUpdate()
     }

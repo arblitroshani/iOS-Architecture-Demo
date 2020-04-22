@@ -58,7 +58,7 @@ class MvvmcDemoTests: XCTestCase {
         let taps = tapOnButton(times: 10)
 
         let results = scheduler.createObserver(Void.self)
-        viewModel.didDismiss
+        viewModel.didRequestDismiss
             .asObservable()
             .subscribe(results)
             .disposed(by: disposeBag)

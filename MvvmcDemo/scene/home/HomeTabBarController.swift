@@ -1,5 +1,5 @@
 //
-//  HomeTabViewController.swift
+//  HomeTabBarController.swift
 //  MvvmcDemo
 //
 //  Created by Arbli Troshani on 4/19/20.
@@ -10,6 +10,8 @@ import UIKit
 
 
 class HomeTabBarController: UITabBarController {
+
+    weak var coordinator: HomeCoordinator?
 
     init(with viewControllers: [UIViewController]) {
         super.init(nibName: nil, bundle: nil)

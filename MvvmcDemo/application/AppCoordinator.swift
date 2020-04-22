@@ -11,12 +11,14 @@ import UIKit
 
 class AppCoordinator: Coordinator {
 
-    var window: UIWindow
+    let window: UIWindow
 
     init(window: UIWindow) {
         self.window = window
+
         let appNavigationController = UINavigationController()
-        appNavigationController.isNavigationBarHidden = true
+//        appNavigationController.isNavigationBarHidden = true
+
         super.init(with: appNavigationController)
     }
 

@@ -8,26 +8,16 @@ Basic app showcasing MVVM-C architecture with RxSwift FRP.
 - MVVM base architecture
 - Coordinator patern for handling navigation
 - RxSwift and RxCocoa frameworks for bindings
-- RxTest and RxBlocking frameworks for unit tests
+- RxTest and RxBlocking frameworks for testing
 - Layouts created programmatically
 
 ## Coordinator  
 ###### location: `/util/base/`
   - Base class that conforms to `CoordinatorType` protocol
-  - `childCoordinators` used to keep strong references to newly created coordinators
-  - `parentCoordinator` used to keep a weak reference to the parent coordinator, which is injected in `init()`
-  - `didDismiss: Single<Void>` example of intra-coordinator communication
-  - `WindowCoordinator` is a subclass of `Coordinator` that also conforms to `WindowInitializable`.
-  - On initial load, `SceneDelegate` creates `AppCoordinator` and injects the newly created `UIWindow` instance.
+  - `childCoordinators` used to keep strong references to created coordinators
+  - `AppCoordinator` is a subclass of `Coordinator` that uses a `UIWindow` instance injected from  `SceneDelegate` on initial load
+  - Subclasses of `Coordinator` can set themselves as a delegate of `UINavigationControllerDelegate` and can get notified when a `ViewController` is popped from `navigationController` by overriding `didRemove(_:)`
   
-### App Coordinator
-###### location: `/application/`
-- subclasses `WindowCoordinator`
-- created and strongly referenced by `SceneDelagate` on initial load
-- creates, stores, starts the first coordinator.
-- sets the `window.rootViewController` and calls `window.makeKeyAndVisible()`
-- other initialization code that might not be appropriate for `AppDelegate` or `SceneDelegate`.
-
 ## ViewModel
 ###### location: `/scene/*/...ViewModel.swift`
 - must not import `UIKit`
@@ -37,7 +27,7 @@ Basic app showcasing MVVM-C architecture with RxSwift FRP.
 - all output from the `ViewModel` that is aimed to the `ViewController` is a `Driver<T>`
 - other output aimed at it's Coordinator' can be an `Observable` or other `Traits`
 - all output should be direct mapping of input
-- should not keep state explicitly, but rather utilize operators such as [scan()](http://reactivex.io/documentation/operators/scan.html)
+- should not keep state explicitly, but rather utilize operators such as [`scan()`](http://reactivex.io/documentation/operators/scan.html)
 
 ## ViewController
 ###### location: `/scene/*/...ViewController.swift`
@@ -52,8 +42,11 @@ Basic app showcasing MVVM-C architecture with RxSwift FRP.
 ----
 
 ### Inspiration from:
-- [bhlvoong/LBTATools](https://github.com/bhlvoong/LBTATools)
+- [Coordinator pattern by Soroush Khanlou](https://khanlou.com/2015/01/the-coordinator/)
+- [Advanced Coordinators in iOS by Paul Hudson](https://www.hackingwithswift.com/articles/175/advanced-coordinator-pattern-tutorial-ios)
 - [kickstarter/ios-oss](https://github.com/kickstarter/ios-oss)
 - [quickbirdstudios/XCoordinator](https://github.com/quickbirdstudios/XCoordinator)
+- [bhlvoong/LBTATools](https://github.com/bhlvoong/LBTATools)
 
 ### Work in progress.
+

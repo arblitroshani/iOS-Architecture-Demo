@@ -17,7 +17,7 @@ protocol CounterViewModelInputsType {
 
 protocol CounterViewModelOutputsType {
     var didSetTitle: Driver<String> { get }
-    var didDismiss: Single<Void> { get }
+    var didRequestDismiss: Single<Void> { get }
 }
 
 protocol CounterViewModelType: class {
@@ -39,7 +39,7 @@ final class CounterViewModel: CounterViewModelType {
 
     // Outputs
     var didSetTitle: Driver<String>
-    var didDismiss: Single<Void>
+    var didRequestDismiss: Single<Void>
 
     // ViewModel Life Cycle
 
@@ -63,7 +63,7 @@ final class CounterViewModel: CounterViewModelType {
             .filter { $0 == 0 }
             .map { _ in () }
 
-        didDismiss = didReachZero.take(1).asSingle()
+        didRequestDismiss = didReachZero.take(1).asSingle()
 
         // View Model Lifcycle
 

@@ -24,6 +24,14 @@ class MainScreenCoordinator: Coordinator {
         }).disposed(by: disposeBag)
 
         navigationController.pushViewController(viewController, animated: false)
+
+        navigationController.delegate = self
+    }
+
+    override func didRemove(_ controller: UIViewController) {
+        if let homeTabBarController = controller as? HomeTabBarController {
+            free(homeTabBarController.coordinator)
+        }
     }
 
     private func actOnStart() {
