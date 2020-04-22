@@ -30,7 +30,7 @@ class HomeCoordinator: Coordinator {
 
         super.init(with: navigationController)
 
-        counterViewModel.didRequestDismiss.subscribe(onSuccess: { [weak self] in
+        counterViewModel.outputs.didRequestDismiss.subscribe(onSuccess: { [weak self] in
             self?.actOnDismissRequest()
         }).disposed(by: disposeBag)
     }

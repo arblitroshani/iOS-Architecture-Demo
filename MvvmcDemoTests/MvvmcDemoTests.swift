@@ -31,7 +31,7 @@ class MvvmcDemoTests: XCTestCase {
     }
 
     func testViewModelEmitsInitialValue() {
-        let emittedTitle = try! viewModel.didSetTitle.toBlocking().first()!
+        let emittedTitle = try! viewModel.outputs.didSetTitle.toBlocking().first()!
         XCTAssertEqual(emittedTitle, "10 more taps to dismiss")
     }
 
@@ -39,7 +39,7 @@ class MvvmcDemoTests: XCTestCase {
         let taps = tapOnButton(times: 2)
 
         let results = scheduler.createObserver(String.self)
-        viewModel.didSetTitle
+        viewModel.outputs.didSetTitle
             .drive(results)
             .disposed(by: disposeBag)
         scheduler.start()
@@ -58,7 +58,7 @@ class MvvmcDemoTests: XCTestCase {
         let taps = tapOnButton(times: 10)
 
         let results = scheduler.createObserver(Void.self)
-        viewModel.didRequestDismiss
+        viewModel.outputs.didRequestDismiss
             .asObservable()
             .subscribe(results)
             .disposed(by: disposeBag)
@@ -73,7 +73,7 @@ class MvvmcDemoTests: XCTestCase {
         tapOnButton(times: 9, spacing: 100)
 
         let results = scheduler.createObserver(String.self)
-        viewModel.didSetTitle
+        viewModel.outputs.didSetTitle
             .drive(results)
             .disposed(by: disposeBag)
         scheduler.start()

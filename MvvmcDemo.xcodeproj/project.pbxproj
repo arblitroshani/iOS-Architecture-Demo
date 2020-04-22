@@ -160,9 +160,9 @@
 			isa = PBXGroup;
 			children = (
 				C5F6F7C72449E07800B066DC /* application */,
+				C5F6F91724508D1400B066DC /* resources */,
 				C5F6F8132449E1CF00B066DC /* util */,
 				C5F6F869244A152300B066DC /* scene */,
-				C5F6F7B22449DFCE00B066DC /* Info.plist */,
 			);
 			path = MvvmcDemo;
 			sourceTree = "<group>";
@@ -179,8 +179,6 @@
 		C5F6F7C72449E07800B066DC /* application */ = {
 			isa = PBXGroup;
 			children = (
-				C5F6F7AD2449DFCE00B066DC /* Assets.xcassets */,
-				C5F6F7AF2449DFCE00B066DC /* LaunchScreen.storyboard */,
 				C5F6F7A42449DFCB00B066DC /* AppDelegate.swift */,
 				C5F6F7A62449DFCB00B066DC /* SceneDelegate.swift */,
 				C5F6F85F2449E73B00B066DC /* AppCoordinator.swift */,
@@ -272,6 +270,16 @@
 				C5F6F889244C945300B066DC /* Color.swift */,
 			);
 			path = constant;
+			sourceTree = "<group>";
+		};
+		C5F6F91724508D1400B066DC /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				C5F6F7AD2449DFCE00B066DC /* Assets.xcassets */,
+				C5F6F7AF2449DFCE00B066DC /* LaunchScreen.storyboard */,
+				C5F6F7B22449DFCE00B066DC /* Info.plist */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -634,7 +642,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6MGQGYM27;
-				INFOPLIST_FILE = MvvmcDemo/Info.plist;
+				INFOPLIST_FILE = MvvmcDemo/resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -653,7 +661,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6MGQGYM27;
-				INFOPLIST_FILE = MvvmcDemo/Info.plist;
+				INFOPLIST_FILE = MvvmcDemo/resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

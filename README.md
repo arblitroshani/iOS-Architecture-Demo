@@ -1,5 +1,5 @@
 # iOS Architecture Demo
-![build](https://github.com/arblitroshani/iOS-Architecture-Demo/workflows/build/badge.svg?branch=master)
+![swift](https://img.shields.io/badge/swift-5.0-brightgreen)&nbsp; ![build](https://github.com/arblitroshani/iOS-Architecture-Demo/workflows/build/badge.svg?branch=master)    
 
 Basic app showcasing MVVM-C architecture with RxSwift FRP.
 
