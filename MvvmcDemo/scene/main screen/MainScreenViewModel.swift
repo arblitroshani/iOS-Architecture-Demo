@@ -13,13 +13,18 @@ import RxCocoa
 final class MainScreenViewModel {
 
     let input: Input
-    let output: Output
+    let output: ViewControllerOutput
+    let coordinatorOutput: CoordinatorOutput
 
     struct Input {
         let startTrigger: PublishRelay<Void>
     }
 
-    struct Output {
+    struct ViewControllerOutput {
+
+    }
+
+    struct CoordinatorOutput {
         let didStart: Observable<Void>
     }
 
@@ -29,7 +34,10 @@ final class MainScreenViewModel {
 
         self.input = Input(startTrigger: startTrigger)
 
-        // MARK: - Output
-        self.output = Output(didStart: startTrigger.asObservable())
+        // MARK: - ViewControllerOutput
+        self.output = ViewControllerOutput()
+
+        // MARK: - CoordinatorOutput
+        self.coordinatorOutput = CoordinatorOutput(didStart: startTrigger.asObservable())
     }
 }

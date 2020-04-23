@@ -19,7 +19,7 @@ class MainScreenCoordinator: Coordinator {
         let viewModel = MainScreenViewModel()
         viewController.bind(to: viewModel)
 
-        viewModel.output.didStart.subscribe(onNext: { [weak self] in
+        viewModel.coordinatorOutput.didStart.subscribe(onNext: { [weak self] in
             self?.actOnStart()
         }).disposed(by: disposeBag)
 

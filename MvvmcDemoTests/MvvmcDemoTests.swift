@@ -71,7 +71,7 @@ class MvvmcDemoTests: XCTestCase {
 
     func testViewModelIssuesDismissWhenCounterReachesZero() {
         let viewModel = CounterViewModel(startWith: 10)
-        let (events, taps) = getResultEvents(from: viewModel.output.didRequestDismiss.asObservable(),
+        let (events, taps) = getResultEvents(from: viewModel.coordinatorOutput.didRequestDismiss.asObservable(),
                                              forTapCount: 10,
                                              to: viewModel.input.tapTrigger)
 
