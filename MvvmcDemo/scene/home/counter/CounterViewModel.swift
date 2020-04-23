@@ -11,51 +11,38 @@ import RxSwift
 import RxCocoa
 
 
-protocol CounterViewModelInputsType {
-    var tapTrigger: PublishRelay<Void> { get }
-}
+final class CounterViewModel {
 
-protocol CounterViewModelOutputsType {
-    var didSetTitle: Driver<String> { get }
-    var didRequestDismiss: Single<Void> { get }
-}
+    let input: Input
+    let output: Output
 
-protocol CounterViewModelType: class {
-    var inputs: CounterViewModelInputsType { get }
-    var outputs: CounterViewModelOutputsType { get }
-}
+    struct Input {
+        let tapTrigger: PublishRelay<Void>
+    }
 
-
-final class CounterViewModel: CounterViewModelType {
-
-    var inputs: CounterViewModelInputsType { return self }
-    var outputs: CounterViewModelOutputsType { return self }
+    struct Output {
+        let didSetTitle: Driver<String>
+        let didRequestDismiss: Single<Void>
+    }
 
     // Setup
-    let disposeBag: DisposeBag
+    private let disposeBag: DisposeBag
 
-    // Inputs
-    var tapTrigger: PublishRelay<Void>
-
-    // Outputs
-    var didSetTitle: Driver<String>
-    var didRequestDismiss: Single<Void>
-
-    // ViewModel Life Cycle
-
-    init() {
-        // Setup
+    init(startWith startValue: Int = 10) {
+        // MARK: - Setup
         self.disposeBag = DisposeBag()
 
-        // Inputs
-        tapTrigger = PublishRelay()
+        // MARK: - Input
+        let tapTrigger = PublishRelay<Void>()
 
-        // Outputs
+        self.input = Input(tapTrigger: tapTrigger)
+
+        // MARK: - Output
         let backwardsCounterObservable = tapTrigger.asObservable()
             .startWith(())
-            .scan(10 + 1) { prev, _ in prev - 1 }
+            .scan(max(1, startValue) + 1) { prev, _ in prev - 1 }
 
-        didSetTitle = backwardsCounterObservable
+        let didSetTitle = backwardsCounterObservable
             .map { "\($0) more tap\($0 > 1 ? "s" : "") to dismiss" }
             .asDriver(onErrorJustReturn: "Error")
 
@@ -63,12 +50,7 @@ final class CounterViewModel: CounterViewModelType {
             .filter { $0 == 0 }
             .map { _ in () }
 
-        didRequestDismiss = didReachZero.take(1).asSingle()
-
-        // View Model Lifcycle
-
+        self.output = Output(didSetTitle: didSetTitle,
+                             didRequestDismiss: didReachZero.take(1).asSingle())
     }
 }
-
-
-extension CounterViewModel: CounterViewModelInputsType, CounterViewModelOutputsType { }

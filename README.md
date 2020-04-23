@@ -21,7 +21,6 @@ Basic app showcasing MVVM-C architecture with RxSwift FRP.
 ## ViewModel
 ###### location: `/scene/*/...ViewModel.swift`
 - must not import `UIKit`
-- has protocols defined for `Input` and `Output` to achieve type safety and have more control
 - any `button.rx.tap` Observable sequence comes from the `ViewController` as `Signal<Void>` which emits to a `PublishRelay<Void>` in the `ViewModel`
 - other non-void Observable sequences from the `ViewController` come as `Driver<T>` which drive a `BehaviorRelay<T>` in the `ViewModel`.
 - all output from the `ViewModel` that is aimed to the `ViewController` is a `Driver<T>`
@@ -44,6 +43,7 @@ Basic app showcasing MVVM-C architecture with RxSwift FRP.
 ### Inspiration from:
 - [Coordinator pattern by Soroush Khanlou](https://khanlou.com/2015/01/the-coordinator/)
 - [Advanced Coordinators in iOS by Paul Hudson](https://www.hackingwithswift.com/articles/175/advanced-coordinator-pattern-tutorial-ios)
+- [popei69/TemplateProject](https://github.com/popei69/TemplateProject)
 - [kickstarter/ios-oss](https://github.com/kickstarter/ios-oss)
 - [quickbirdstudios/XCoordinator](https://github.com/quickbirdstudios/XCoordinator)
 - [bhlvoong/LBTATools](https://github.com/bhlvoong/LBTATools)

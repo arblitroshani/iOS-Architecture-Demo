@@ -29,7 +29,7 @@ final class MainScreenViewController: UIViewController, BindableType {
     func bindViewModel() {
         startButton.rx.tap
             .asSignal()
-            .emit(to: viewModel.inputs.startTrigger)
+            .emit(to: viewModel.input.startTrigger)
             .disposed(by: disposeBag)
     }
 }

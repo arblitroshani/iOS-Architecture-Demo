@@ -19,30 +19,32 @@ class MvvmcDemoTests: XCTestCase {
     var disposeBag: DisposeBag!
     var scheduler: TestScheduler!
 
-    var viewModel: CounterViewModel!
-
     override func setUp() {
         super.setUp()
 
         self.disposeBag = DisposeBag()
         self.scheduler = TestScheduler(initialClock: 0)
-
-        self.viewModel = CounterViewModel()
     }
 
+    // MARK: - Tests
+
     func testViewModelEmitsInitialValue() {
-        let emittedTitle = try! viewModel.outputs.didSetTitle.toBlocking().first()!
+        let emittedTitle = getFirstEmittedTitle(startWith: 10)
         XCTAssertEqual(emittedTitle, "10 more taps to dismiss")
     }
 
-    func testCounterTitle() {
-        let taps = tapOnButton(times: 2)
+    func testCustomValueViewModelInitialValue() {
+        let emittedTitle = getFirstEmittedTitle(startWith: 3)
+        XCTAssertEqual(emittedTitle, "3 more taps to dismiss")
+    }
 
-        let results = scheduler.createObserver(String.self)
-        viewModel.outputs.didSetTitle
-            .drive(results)
-            .disposed(by: disposeBag)
-        scheduler.start()
+    func testIncorrectValueViewModelInitialValue() {
+        let emittedTitle = getFirstEmittedTitle(startWith: -1)
+        XCTAssertEqual(emittedTitle, "1 more tap to dismiss")
+    }
+
+    func testCounterTitleStartingWithDefaultValue() {
+        let (events, taps) = getTitleResultEvents(startWith: 10, forTapCount: 2)
 
         let expected: [Recorded<Event<String>>] = [
             .next(0, "10 more taps to dismiss"),
@@ -50,50 +52,91 @@ class MvvmcDemoTests: XCTestCase {
             .next(taps[1], "8 more taps to dismiss")
         ]
 
-        XCTAssertEqual(results.events.count, 3)
-        XCTAssertEqual(results.events, expected)
+        XCTAssertEqual(events.count, 3)
+        XCTAssertEqual(events, expected)
+    }
+
+    func testCounterTitleStartingWithCustomValue() {
+        let (events, taps) = getTitleResultEvents(startWith: 5, forTapCount: 2)
+
+        let expected: [Recorded<Event<String>>] = [
+            .next(0, "5 more taps to dismiss"),
+            .next(taps[0], "4 more taps to dismiss"),
+            .next(taps[1], "3 more taps to dismiss")
+        ]
+
+        XCTAssertEqual(events.count, 3)
+        XCTAssertEqual(events, expected)
     }
 
     func testViewModelIssuesDismissWhenCounterReachesZero() {
-        let taps = tapOnButton(times: 10)
+        let viewModel = CounterViewModel(startWith: 10)
+        let (events, taps) = getResultEvents(from: viewModel.output.didRequestDismiss.asObservable(),
+                                             forTapCount: 10,
+                                             to: viewModel.input.tapTrigger)
 
-        let results = scheduler.createObserver(Void.self)
-        viewModel.outputs.didRequestDismiss
-            .asObservable()
-            .subscribe(results)
-            .disposed(by: disposeBag)
-        scheduler.start()
-
-        XCTAssertNotNil(results.events.first)
-        XCTAssertFalse(results.events.first!.value.isCompleted)
-        XCTAssertEqual(results.events.first!.time, taps.last!)
+        XCTAssertNotNil(events.first)
+        XCTAssertFalse(events.first!.value.isCompleted)
+        XCTAssertEqual(events.first!.time, taps.last!)
     }
 
     func testCounterUsesSingularNameCorrectly() {
-        tapOnButton(times: 9, spacing: 100)
+        let (events, _) = getTitleResultEvents(startWith: 10, forTapCount: 9)
 
-        let results = scheduler.createObserver(String.self)
-        viewModel.outputs.didSetTitle
-            .drive(results)
-            .disposed(by: disposeBag)
-        scheduler.start()
+        XCTAssertNotNil(events.last)
+        XCTAssertNotNil(events.last!.value.element)
+        XCTAssertEqual(events.last!.value.element!, "1 more tap to dismiss")
+    }
 
-        XCTAssertNotNil(results.events.last)
-        XCTAssertNotNil(results.events.last!.value.element)
-        XCTAssertEqual(results.events.last?.value.element!, "1 more tap to dismiss")
+    // MARK: - Helper methods
+
+    private func getFirstEmittedTitle(startWith startValue: Int) -> String {
+        return try! CounterViewModel(startWith: startValue)
+            .output.didSetTitle
+            .toBlocking()
+            .first()!
     }
 
     @discardableResult
-    private func tapOnButton(times: Int, spacing: Int = 10) -> [Int] {
+    private func sendTapEvents(
+        to observer: PublishRelay<Void>,
+        times: Int, spacing: Int = 10) -> [Int]
+    {
         let buttonTaps = (1 ... times).map { spacing * $0 }
         let buttonTapEvents = buttonTaps.map { Recorded.next($0, ()) }
 
         scheduler
             .createHotObservable(buttonTapEvents)
             .asObservable()
-            .bind(to: viewModel.inputs.tapTrigger)
+            .bind(to: observer)
             .disposed(by: disposeBag)
 
         return buttonTaps
+    }
+
+    private func getResultEvents<T>(
+        from observable: Observable<T>,
+        forTapCount tapCount: Int,
+        to tapObserver: PublishRelay<Void>) -> ([Recorded<Event<T>>], [Int])
+    {
+        let taps = sendTapEvents(to: tapObserver, times: tapCount)
+
+        let results = scheduler.createObserver(T.self)
+        observable
+            .subscribe(results)
+            .disposed(by: disposeBag)
+        scheduler.start()
+
+        return (results.events, taps)
+    }
+
+    private func getTitleResultEvents(
+        startWith startValue: Int,
+        forTapCount tapCount: Int) -> ([Recorded<Event<String>>], [Int])
+    {
+        let viewModel = CounterViewModel(startWith: startValue)
+        return getResultEvents(from: viewModel.output.didSetTitle.asObservable(),
+                               forTapCount: tapCount,
+                               to: viewModel.input.tapTrigger)
     }
 }

@@ -10,46 +10,26 @@ import RxSwift
 import RxCocoa
 
 
-protocol MainScreenViewModelInputsType {
-    var startTrigger: PublishRelay<Void> { get }
-}
+final class MainScreenViewModel {
 
-protocol MainScreenViewModelOutputsType {
-    var didStart: Observable<Void> { get }
-}
+    let input: Input
+    let output: Output
 
-protocol MainScreenViewModelType: class {
-    var inputs: MainScreenViewModelInputsType { get }
-    var outputs: MainScreenViewModelOutputsType { get }
-}
+    struct Input {
+        let startTrigger: PublishRelay<Void>
+    }
 
-
-final class MainScreenViewModel: MainScreenViewModelType {
-
-    var inputs: MainScreenViewModelInputsType { return self }
-    var outputs: MainScreenViewModelOutputsType { return self }
-
-    // Setup
-
-    // Inputs
-    let startTrigger: PublishRelay<Void>
-
-    // Outputs
-    var didStart: Observable<Void>
-
-    // ViewModel Life Cycle
+    struct Output {
+        let didStart: Observable<Void>
+    }
 
     init() {
-        // Setup
+        // MARK: - Input
+        let startTrigger = PublishRelay<Void>()
 
-        // Inputs
-        startTrigger = PublishRelay()
+        self.input = Input(startTrigger: startTrigger)
 
-        // Outputs
-        didStart = startTrigger.asObservable()
+        // MARK: - Output
+        self.output = Output(didStart: startTrigger.asObservable())
     }
 }
-
-
-extension MainScreenViewModel: MainScreenViewModelInputsType, MainScreenViewModelOutputsType { }
-

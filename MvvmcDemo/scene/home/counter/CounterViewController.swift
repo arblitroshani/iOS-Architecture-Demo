@@ -29,10 +29,10 @@ final class CounterViewController: UIViewController, BindableType {
     func bindViewModel() {
         dismissButton.rx.tap
             .asSignal()
-            .emit(to: viewModel.inputs.tapTrigger)
+            .emit(to: viewModel.input.tapTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.outputs.didSetTitle
+        viewModel.output.didSetTitle
             .drive(titleLabel.rx.text)
             .disposed(by: disposeBag)
     }
